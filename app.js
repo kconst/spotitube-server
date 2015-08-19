@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var playlists = require('./routes/playlists');
+var login = require('./routes/login');
+var refresh_token = require('./routes/refresh_token');
+var callback = require('./routes/callback');
 
 var app = express();
 
@@ -24,7 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/playlists', users);
+app.use('/playlists', playlists);
+app.use('/login', login);
+app.use('/refresh_token', refresh_token);
+app.use('/callback', callback);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
