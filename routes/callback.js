@@ -7,7 +7,7 @@ var request = require('request'); // "Request" library
 var stateKey = 'spotify_auth_state';
 var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
 var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
-var redirect_uri = 'http://localhost:3000/playlists'; // Your redirect uri
+var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
 
 router.get('/', function(req, res) {
 
@@ -44,8 +44,13 @@ router.get('/', function(req, res) {
                 var access_token = body.access_token,
                     refresh_token = body.refresh_token;
 
-                var options = {
+                /*var options = {
                     url: 'https://api.spotify.com/v1/me',
+                    headers: { 'Authorization': 'Bearer ' + access_token },
+                    json: true
+                };*/
+                var options = {
+                    url: 'https://api.spotify.com/v1/users/kconst/playlists',
                     headers: { 'Authorization': 'Bearer ' + access_token },
                     json: true
                 };
