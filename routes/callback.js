@@ -44,24 +44,23 @@ router.get('/', function(req, res) {
                 var access_token = body.access_token,
                     refresh_token = body.refresh_token;
 
-                /*var options = {
+                var options = {
                     url: 'https://api.spotify.com/v1/me',
                     headers: { 'Authorization': 'Bearer ' + access_token },
                     json: true
-                };*/
-                var options = {
+                };
+                /*var options = {
                     url: 'https://api.spotify.com/v1/users/kconst/playlists',
                     headers: { 'Authorization': 'Bearer ' + access_token },
                     json: true
-                };
+                };*/
 
-                // use the access token to access the Spotify Web API
-                request.get(options, function(error, response, body) {
-                    console.log(body);
-                });
+                /*request.get(options, function(error, response, body) {
+                    res.send(body);
+                });*/
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('/#' +
+                res.redirect('http://localhost:63342/spotitube-ui/app#' +
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token
