@@ -6,23 +6,37 @@ var stateKey = 'spotify_auth_state';
 
 var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
 var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
-var redirect_uri = 'http://localhost:3000/callback'; // Your redirect uri
+
+var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
 
 router.get('/', function(req, res) {
-
     var state = generateRandomString(16);
+
     res.cookie(stateKey, state);
 
     // your application requests authorization
-    var scope = 'user-read-private user-read-email';
-    res.redirect('https://accounts.spotify.com/authorize?' +
-        querystring.stringify({
-            response_type: 'code',
-            client_id: client_id,
-            scope: scope,
-            redirect_uri: redirect_uri,
-            state: state
-        }));
+    switch(req.baseUrl) {
+        case '/login_spotify':
+            res.redirect('https://accounts.spotify.com/authorize?' +
+                querystring.stringify({
+                    response_type: 'code',
+                    client_id: client_id,
+                    scope: 'user-read-private user-read-email',
+                    redirect_uri: 'http://localhost:3000/cb_spotify',
+                    state: state
+                }));
+            break;
+
+        case '/login_youtube':
+
+            break;
+
+        default:
+            // do nothing!
+            break;
+    }
+
+
 });
 
 
