@@ -31,7 +31,7 @@ app.use('/users', users);
 app.use('/playlists', playlists);
 app.use(['/login_spotify', '/login_youtube'], login);
 app.use('/refresh_token', refresh_token);
-app.use(['/cb_spotify', '/cb_youtube'], callback);
+app.use(['/cb_spotify', 'cb_youtube'], callback);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

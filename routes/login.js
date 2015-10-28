@@ -7,9 +7,6 @@ var stateKey = 'spotify_auth_state';
 var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
 var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
 
-var youtube_client_id = '698516020401-j4q118gppsa4cqoiac1aiiql57hlagdp.apps.googleusercontent.com';
-var youtube_client_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
-
 var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
 
 router.get('/', function(req, res) {
@@ -31,13 +28,7 @@ router.get('/', function(req, res) {
             break;
 
         case '/login_youtube':
-            res.redirect('https://accounts.google.com/o/oauth2/auth?' +
-                querystring.stringify({
-                    client_id: youtube_client_id,
-                    redirect_uri: redirect_uri_youtube,
-                    response_type: 'code',
-                    scope: 'https://www.googleapis.com/auth/youtube.readonly'
-                }));
+
             break;
 
         default:
