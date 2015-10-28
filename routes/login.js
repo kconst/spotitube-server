@@ -5,6 +5,7 @@ var querystring = require('querystring');
 var stateKey = 'spotify_auth_state';
 
 var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
+
 var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
 
 var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
