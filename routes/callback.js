@@ -7,6 +7,8 @@ var request = require('request'); // "Request" library
 var stateKey = 'spotify_auth_state';
 var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
 var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
+var youtube_client_id = '698516020401-j4q118gppsa4cqoiac1aiiql57hlagdp.apps.googleusercontent.com'; // Your client id
+var youtube_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
 
 var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
 
@@ -20,7 +22,7 @@ router.get('/', function(req, res) {
         storedState = req.cookies ? req.cookies[stateKey] : null,
         authOptions;
 
-    if (state === null || state !== storedState) {
+    if (state === null || (state !== storedState && req.baseUrl !== '/cb_youtube')) {
         res.redirect('/#' +
             querystring.stringify({
                 error: 'state_mismatch'
@@ -45,6 +47,17 @@ router.get('/', function(req, res) {
                 break;
 
             case '/cb_youtube':
+                authOptions = {
+                    form : {
+                        client_id : youtube_client_id,
+                        client_secret : youtube_secret,
+                        redirect_uri : redirect_uri_youtube,
+                        grant_type : 'authorization_code',
+                        code : req.query.code
+                    },
+                    url : 'https://accounts.google.com/o/oauth2/token',
+                    json: true
+                };
 
                 break;
 
@@ -80,18 +93,19 @@ router.get('/', function(req, res) {
                         break;
 
                     case '/cb_youtube':
-
+                        // we can also pass the token to the browser to make requests from there
+                        res.redirect('http://localhost:9000/#/loginYouTube/' +
+                            querystring.stringify({
+                                access_token: access_token,
+                                refresh_token: refresh_token
+                            })
+                        );
                         break;
 
                     default:
                         // do nothing!
                         break;
                 }
-
-                /*res.json({
-                    access_token : access_token,
-                    refresh_token : refresh_token
-                });*/
             } else {
                 res.redirect('/#' +
                     querystring.stringify({
