@@ -1,3 +1,5 @@
+var keys = require('../keys.json');
+var network = require('../network.json');
 var express = require('express');
 var router = express.Router();
 
@@ -5,12 +7,13 @@ var querystring = require('querystring');
 var request = require('request'); // "Request" library
 
 var stateKey = 'spotify_auth_state';
-var client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
-var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
-var youtube_client_id = '698516020401-j4q118gppsa4cqoiac1aiiql57hlagdp.apps.googleusercontent.com'; // Your client id
-var youtube_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
 
-var redirect_uri_youtube = 'https://spotitube-kconst.c9users.io:8080/cb_youtube';
+var client_id = keys.spotify.client_id; // Your client id
+var client_secret = keys.spotify.secret; // Your client secret
+var youtube_client_id = keys.youtube.client_id; // Your client id
+var youtube_secret = keys.youtube.secret;
+
+var redirect_uri_youtube = network.client + '/cb_youtube';
 
 router.get('/', function(req, res) {
 
@@ -36,7 +39,7 @@ router.get('/', function(req, res) {
                     url: 'https://accounts.spotify.com/api/token',
                     form: {
                         code: code,
-                        redirect_uri: 'https://spotitube-kconst.c9users.io:8080/cb_spotify',
+                        redirect_uri: network.client + '/cb_spotify',
                         grant_type: 'authorization_code'
                     },
                     headers: {
@@ -84,7 +87,7 @@ router.get('/', function(req, res) {
                         };
 
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect('https://spotitube-kconst.c9users.io:8081/?spotify_cb=true&' +
+                        res.redirect(network.server + '/?spotify_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token,
                                 refresh_token: refresh_token
@@ -94,7 +97,7 @@ router.get('/', function(req, res) {
 
                     case '/cb_youtube':
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect('https://spotitube-kconst.c9users.io:8081/?youtube_cb=true&' +
+                        res.redirect(network.server + '/?youtube_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token/*,
                                 refresh_token: refresh_token*/

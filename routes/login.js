@@ -1,21 +1,21 @@
+var keys = require('../keys.json');
+var network = require('../network.json');
 var express = require('express');
 var router = express.Router();
 var querystring = require('querystring');
-
-
 
 router.get('/', function(req, res) {
     var state = generateRandomString(16);
     var stateKey = 'spotify_auth_state';
 
-    var spotify_client_id = 'ba5b2615ce414440948c106752da0185'; // Your client id
-    var spotify_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
+    var spotify_client_id = keys.spotify.client_id; // Your client id
+    var spotify_secret = keys.spotify.secret; // Your client secret
 
-    var youtube_client_id = '698516020401-j4q118gppsa4cqoiac1aiiql57hlagdp.apps.googleusercontent.com'; // Your client id
+    var youtube_client_id = keys.youtube.client_id; // Your client id
 
-    var youtube_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
+    var youtube_secret = keys.youtube.secret;
 
-    var redirect_uri_youtube = 'https://spotitube-kconst.c9users.io:8080/cb_youtube';
+    var redirect_uri_youtube = network.client + '/cb_youtube';
     res.cookie(stateKey, state);
 
     // your application requests authorization
@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
                     response_type: 'code',
                     client_id: spotify_client_id,
                     scope: 'user-read-private user-read-email',
-                    redirect_uri: 'https://spotitube-kconst.c9users.io:8080/cb_spotify',
+                    redirect_uri: network.client + '/cb_spotify',
                     state: state
                 }));
             break;
