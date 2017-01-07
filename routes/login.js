@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 
     var youtube_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
 
-    var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
+    var redirect_uri_youtube = 'https://spotitube-kconst.c9users.io:8080/cb_youtube';
     res.cookie(stateKey, state);
 
     // your application requests authorization
@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
                     response_type: 'code',
                     client_id: spotify_client_id,
                     scope: 'user-read-private user-read-email',
-                    redirect_uri: 'http://localhost:3000/cb_spotify',
+                    redirect_uri: 'https://spotitube-kconst.c9users.io:8080/cb_spotify',
                     state: state
                 }));
             break;

@@ -10,7 +10,7 @@ var client_secret = 'f51c3f284bd34125bbcab83ade3e1ccb'; // Your client secret
 var youtube_client_id = '698516020401-j4q118gppsa4cqoiac1aiiql57hlagdp.apps.googleusercontent.com'; // Your client id
 var youtube_secret = 'pCsEz5Ey-zkQ0fYCA25rx8KK';
 
-var redirect_uri_youtube = 'http://localhost:3000/cb_youtube';
+var redirect_uri_youtube = 'https://spotitube-kconst.c9users.io:8080/cb_youtube';
 
 router.get('/', function(req, res) {
 
@@ -36,7 +36,7 @@ router.get('/', function(req, res) {
                     url: 'https://accounts.spotify.com/api/token',
                     form: {
                         code: code,
-                        redirect_uri: 'http://localhost:3000/cb_spotify',
+                        redirect_uri: 'https://spotitube-kconst.c9users.io:8080/cb_spotify',
                         grant_type: 'authorization_code'
                     },
                     headers: {
@@ -84,7 +84,7 @@ router.get('/', function(req, res) {
                         };
 
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect('http://localhost:9000/#/loginSpotify/' +
+                        res.redirect('https://spotitube-kconst.c9users.io:8081/?spotify_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token,
                                 refresh_token: refresh_token
@@ -94,7 +94,7 @@ router.get('/', function(req, res) {
 
                     case '/cb_youtube':
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect('http://localhost:9000/#/loginYouTube/' +
+                        res.redirect('https://spotitube-kconst.c9users.io:8081/?youtube_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token/*,
                                 refresh_token: refresh_token*/
