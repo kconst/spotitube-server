@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
 
     var youtube_secret = keys.youtube.secret;
 
-    var redirect_uri_youtube = network.client + '/cb_youtube';
+    var redirect_uri_youtube = network.server + '/cb_youtube';
     res.cookie(stateKey, state);
 
     // your application requests authorization
@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
                     response_type: 'code',
                     client_id: spotify_client_id,
                     scope: 'user-read-private user-read-email',
-                    redirect_uri: network.client + '/cb_spotify',
+                    redirect_uri: network.server + '/cb_spotify',
                     state: state
                 }));
             break;

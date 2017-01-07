@@ -13,7 +13,7 @@ var client_secret = keys.spotify.secret; // Your client secret
 var youtube_client_id = keys.youtube.client_id; // Your client id
 var youtube_secret = keys.youtube.secret;
 
-var redirect_uri_youtube = network.client + '/cb_youtube';
+var redirect_uri_youtube = network.server + '/cb_youtube';
 
 router.get('/', function(req, res) {
 
@@ -39,7 +39,7 @@ router.get('/', function(req, res) {
                     url: 'https://accounts.spotify.com/api/token',
                     form: {
                         code: code,
-                        redirect_uri: network.client + '/cb_spotify',
+                        redirect_uri: network.server + '/cb_spotify',
                         grant_type: 'authorization_code'
                     },
                     headers: {
@@ -87,7 +87,7 @@ router.get('/', function(req, res) {
                         };
 
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect(network.server + '/?spotify_cb=true&' +
+                        res.redirect(network.client + '/?spotify_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token,
                                 refresh_token: refresh_token
@@ -97,7 +97,7 @@ router.get('/', function(req, res) {
 
                     case '/cb_youtube':
                         // we can also pass the token to the browser to make requests from there
-                        res.redirect(network.server + '/?youtube_cb=true&' +
+                        res.redirect(network.client + '/?youtube_cb=true&' +
                             querystring.stringify({
                                 access_token: access_token/*,
                                 refresh_token: refresh_token*/
