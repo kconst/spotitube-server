@@ -1,4 +1,4 @@
 {
-  "client": "https://spotitube-kconst.c9users.io:8081",
-  "server": "https://spotitube-kconst.c9users.io:8080"
+  "client": "localhost:8081",
+  "server": "localhost:8080"
 }
